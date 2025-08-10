@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G̸l̸i̷t̸c̸h̴ ̵C̵a̷f̸é̴</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-lime: #39ff14;
+            --bg-color: #0c0c0c;
+            --text-color: #f0f0f0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background-image:
+                linear-gradient(rgba(12, 12, 12, 0.95), rgba(12, 12, 12, 0.95)),
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 0, 255, 0.1) 51px, rgba(0, 255, 255, 0.1) 52px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 0, 255, 0.1) 51px, rgba(0, 255, 255, 0.1) 52px);
+            animation: static-flicker 0.05s infinite;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        h1, h2 {
+            text-align: center;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- Glitch Effect --- */
+        .glitch {
+            position: relative;
+            color: var(--text-color);
+            font-size: 4em;
+            animation: glitch-main 5s infinite linear;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            overflow: hidden;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-magenta);
+            animation: glitch-sub1 5s infinite linear;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-cyan), 2px 2px var(--neon-magenta);
+            animation: glitch-sub2 5s infinite linear;
+            clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-image: linear-gradient(to right, transparent, var(--neon-lime), transparent);
+            margin: 2rem 0;
+        }
+        
+        /* --- Menu Section --- */
+        #menu h2 {
+            color: var(--neon-lime);
+            text-shadow: 0 0 5px var(--neon-lime);
+        }
+
+        .menu-item {
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--neon-magenta);
+            padding-left: 1rem;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+            text-shadow: 0 0 3px var(--neon-magenta);
+        }
+
+        .menu-item h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+        }
+
+        .menu-item p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .side-effect {
+            color: var(--neon-magenta);
+            font-style: italic;
+            margin-top: 0.5rem !important;
+        }
+        
+        .side-effect::before {
+            content: ">> Side Effect: ";
+        }
+
+        /* --- Reviews Section --- */
+        #reviews h2 {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+        
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .review-card {
+            border: 1px dashed var(--neon-lime);
+            padding: 1rem;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .review-card p {
+            margin: 0;
+            font-size: 1.1rem;
+            animation: text-flicker 8s infinite;
+        }
+        
+        .review-card .author {
+            text-align: right;
+            margin-top: 1rem;
+            color: var(--neon-cyan);
+            font-style: italic;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 2rem;
+            font-size: 1rem;
+            text-align: center;
+            color: #555;
+            animation: text-flicker 15s infinite reverse;
+        }
+
+
+        /* --- Keyframe Animations --- */
+        @keyframes glitch-main {
+            0% { transform: skewX(0deg); }
+            5% { transform: skewX(2deg); }
+            10% { transform: skewX(0deg); }
+            50% { transform: skewX(0deg); }
+            52% { transform: skewX(-3deg); }
+            55% { transform: skewX(0deg); }
+            80% { transform: skewX(0deg); }
+            83% { transform: skewX(5deg); }
+            86% { transform: skewX(0deg); }
+            100% { transform: skewX(0deg); }
+        }
+
+        @keyframes glitch-sub1 {
+            0% { clip-path: polygon(0 2%, 100% 2%, 100% 35%, 0 35%); }
+            3% { clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%); }
+            5% { clip-path: polygon(0 90%, 100% 90%, 100% 95%, 0 95%); }
+            6% { clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%); }
+            7% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            8% { clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%); }
+            9% { clip-path: polygon(0 0, 0 0, 0 0, 0 0); }
+            10% { clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%); }
+            10.1% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            40% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            40.1% { clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%); }
+            40.5% { clip-path: polygon(0 80%, 100% 80%, 100% 82%, 0 82%); }
+            40.8% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        }
+        
+        @keyframes glitch-sub2 {
+            0% { clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%); }
+            2% { clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%); }
+            4% { clip-path: polygon(0 95%, 100% 95%, 100% 100%, 0 100%); }
+            4.5% { clip-path: polygon(0 0, 0 0, 0 0, 0 0); }
+            5% { clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%); }
+            5.1% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            70% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            70.1% { clip-path: polygon(0 70%, 100% 70%, 100% 75%, 0 75%); }
+            70.5% { clip-path: polygon(0 10%, 100% 10%, 100% 22%, 0 22%); }
+            70.8% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        }
+
+        @keyframes static-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        @keyframes text-flicker {
+            0%, 19.9%, 22%, 62.9%, 64%, 64.9%, 70%, 100% {
+                opacity: 0.99;
+                text-shadow: 
+                -1px -1px 0 var(--neon-lime), 1px -1px 0 var(--neon-cyan), 
+                -1px 1px 0 var(--neon-lime), 1px 1px 0 var(--neon-cyan);
+            }
+            20%, 21.9%, 63%, 63.9%, 65%, 69.9% {
+                opacity: 0.4;
+                text-shadow: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="glitch" data-text="Glitch Café">Glitch Café</h1>
+        </header>
+        
+        <hr>
+
+        <main id="menu">
+            <h2>~ Menu // Rerouting... ~</h2>
+            <div id="menu-list">
+                </div>
+        </main>
+
+        <hr>
+
+        <section id="reviews">
+            <h2>~ Transmissions_Received ~</h2>
+            <div class="review-grid">
+                <div class="review-card">
+                    <p id="review-1">The coffee tasted like ███████ and now I can hear colors.</p>
+                    <p class="author">- User_7B</p>
+                </div>
+                <div class="review-card">
+                    <p id="review-2">5 stars. Or was it 3? The numbers keep shifting.</p>
+                    <p class="author">- Anomaly_404</p>
+                </div>
+                <div class="review-card">
+                    <p id="review-3">My waiter phased through the table. Excellent service.</p>
+                    <p class="author">- V0ID_WALKER</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Come for the food. Stay because you've forgotten the way back.</p>
+        </footer>
+    </div>
+
+    <script>
+        const allDishes = [
+            {
+                name: "Chrono-Coffee",
+                description: "A dark brew that lets you taste tomorrow's regrets today.",
+                sideEffect: "May cause minor temporal displacement (yesterday's memories may seem fuzzy)."
+            },
+            {
+                name: "Singularity Sandwich",
+                description: "All flavors compressed into a single, reality-bending bite.",
+                sideEffect: "Temporary loss of depth perception; walls may appear closer than they are."
+            },
+            {
+                name: "Poltergeist Pastry",
+                description: "So light, it occasionally floats a few inches off the plate.",
+                sideEffect: "Attracts unseen observers. You may feel a faint chill."
+            },
+            {
+                name: "404-Noodles",
+                description: "Error: Flavor not found. Please reboot your taste buds.",
+                sideEffect: "You forget what you were just thinking about."
+            },
+            {
+                name: "Quantum Quiche",
+                description: "Exists in a superposition of savory and sweet until consumed.",
+                sideEffect: "A 50% chance of experiencing the opposite of your intended emotion."
+            },
+            {
+                name: "Glitch Gazpacho",
+                description: "A cold soup that visually flickers between tomato red and television static.",
+                sideEffect: "Brief auditory hallucinations of dial-up modems."
+            },
+            {
+                name: "Déjà Vu Donuts",
+                description: "Tastes strangely familiar, as if you've eaten this exact donut in a dream.",
+                sideEffect: "You will vividly re-experience the next 10 seconds of your life."
+            },
+            {
+                name: "Eldritch Espresso",
+                description: "A dark, bitter roast with unsettling hints of existential dread.",
+                sideEffect: "You gain fleeting insight into a language you cannot speak."
+            },
+            {
+                name: "Cipher Cake",
+                description: "The ingredients are encrypted. The flavor is a puzzle.",
+                sideEffect: "For the next hour, you can only think in riddles."
+            },
+            {
+                name: "Recursive Ramen",
+                description: "A bowl of noodles within a bowl of noodles within...",
+                sideEffect: "A nagging feeling that you're forgetting something very, very important."
+            },
+            {
+                name: "Shadow Smoothie",
+                description: "Made from fruits grown in perpetual twilight. Tastes like secrets.",
+                sideEffect: "Your shadow moves independently for 5 minutes. Do not watch it."
+            },
+            {
+                name: "Vaporwave Vindaloo",
+                description: "A spicy curry that glows with aesthetic perfection.",
+                sideEffect: "The world appears tinted in pink and cyan for an hour."
+            }
+        ];
+
+        const allReviews = [
+            "The coffee tasted like ███████ and now I can hear colors.",
+            "5 stars. Or was it 3? The numbers keep shifting.",
+            "My waiter phased through the table. Excellent service.",
+            "Came here to fix a bug in my code, left with three more in my reality.",
+            "My coffee stared back at me. 10/10 would be judged by my beverage again.",
+            "The wifi password is a paradox that can't be spoken.",
+            "I asked for the time and the clock melted. Great ambiance.",
+            "The exit is not where you left it.",
+            "Tasted like nostalgia and a low-frequency hum.",
+            "Lost my sense of self for a minute there. The pie was worth it."
+        ];
+        
+        const reviewElements = [
+            document.getElementById('review-1'),
+            document.getElementById('review-2'),
+            document.getElementById('review-3'),
+        ];
+
+        // --- Menu Updater ---
+        const menuList = document.getElementById('menu-list');
+        const numberOfItems = 5; // How many items to show at once
+
+        function updateMenu() {
+            // Shuffle the array of all dishes
+            const shuffledDishes = allDishes.sort(() => 0.5 - Math.random());
+            // Get a slice of the shuffled array
+            const selectedDishes = shuffledDishes.slice(0, numberOfItems);
+
+            let menuHTML = '';
+            selectedDishes.forEach(dish => {
+                menuHTML += `
+                    <div class="menu-item">
+                        <h3>${dish.name}</h3>
+                        <p>${dish.description}</p>
+                        <p class="side-effect">${dish.sideEffect}</p>
+                    </div>
+                `;
+            });
+
+            menuList.innerHTML = menuHTML;
+        }
+        
+        // --- Review Updater ---
+        function updateReviews() {
+            const shuffledReviews = allReviews.sort(() => 0.5 - Math.random());
+            reviewElements.forEach((el, index) => {
+                if(el) el.textContent = shuffledReviews[index];
+            });
+        }
+
+        // Initial calls
+        updateMenu();
+        updateReviews();
+
+        // Set intervals to update content periodically
+        setInterval(updateMenu, 1500); // Menu changes every 1.5 seconds
+        setInterval(updateReviews, 8000); // Reviews change every 8 seconds
+
+    </script>
+</body>
+</html>
