@@ -1,0 +1,12 @@
+# .gitignore
+
+# Dependencies
+# This folder can be huge and is installed by 'npm install'
+node_modules/
+
+# Environment Variables
+# This file contains secrets like API keys and passwords
+.env
+
+# Log files
+*.log
